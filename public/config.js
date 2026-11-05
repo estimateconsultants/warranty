@@ -1,4 +1,4 @@
-// Paste your Google Apps Script web app URL between the quotes (Deploy > Manage deployments > Web app URL).
+// Google Apps Script web app (Punch List project in kevin@estimateconsultants.com).
 window.PUNCH_CONFIG = {
-  scriptUrl: ""
+  scriptUrl: "https://script.google.com/macros/s/AKfycbwIte83MJal_BG8DHY8Gqr5LiDlHkFqHiph_c_wuO0kHOd6bBGtj1SltozAVnDOGDb61w/exec"
 };
