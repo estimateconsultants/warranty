@@ -240,8 +240,12 @@ function banner(msg){$("#banner").textContent=msg||""}
 // Sent as plain text so the browser doesn't need a pre-check request.
 async function api(action,data){
   if(!SCRIPT_URL)throw new Error("The app isn't connected to Google yet (config.js).");
-  const r=await fetch(SCRIPT_URL,{method:"POST",body:JSON.stringify(Object.assign({action,pw:PW},data||{})),redirect:"follow"});
-  let j={};try{j=await r.json()}catch(e){throw new Error("Google didn't answer. Check your connection and try again.")}
+  const ctl=new AbortController();const timer=setTimeout(()=>ctl.abort(),action==="photo"?60000:20000);
+  let r;
+  try{r=await fetch(SCRIPT_URL,{method:"POST",body:JSON.stringify(Object.assign({action,pw:PW},data||{})),redirect:"follow",credentials:"omit",signal:ctl.signal})}
+  catch(e){clearTimeout(timer);throw new Error(e.name==="AbortError"?"Google took too long to answer. Check your signal and try again.":"Couldn't reach Google ("+(e.message||"network error")+"). Open the app's web link in Safari or Chrome and try again.")}
+  let j={};try{j=await r.json()}catch(e){clearTimeout(timer);throw new Error("Google didn't answer. Check your connection and try again.")}
+  clearTimeout(timer);
   if(j.auth===false){lock();throw new Error("Enter the password")}
   if(j.error)throw new Error(j.error);
   return j;
