@@ -208,7 +208,7 @@ main{padding-block:12px 140px}
     <div class="saved-note" id="gateMsg"></div>
   </form>
 </div>
-<script src="/config.js"></script>
+<script src="config.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
@@ -219,7 +219,7 @@ const POLL_MS=15000;
 
 const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 // access key from the shared link (?k=...), remembered on this phone
-const SCRIPT_URL=(window.PUNCH_CONFIG||{}).scriptUrl||"";
+const SCRIPT_URL=(window.PUNCH_CONFIG||{}).scriptUrl||"https://script.google.com/macros/s/AKfycbwIte83MJal_BG8DHY8Gqr5LiDlHkFqHiph_c_wuO0kHOd6bBGtj1SltozAVnDOGDb61w/exec";
 let PW=ls.get("pl_pw")||"";
 
 let items={};          // id -> item
